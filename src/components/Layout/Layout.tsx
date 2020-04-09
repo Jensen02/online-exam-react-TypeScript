@@ -1,24 +1,21 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import { Layout, Breadcrumb } from 'antd';
+// import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
+import HeaderComponent from '../Header/Header';
+import SiderComponent from '../Sider/Sider';
+import { MenuProp } from '../Menu/types';
 import './Layout.less';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+// const { SubMenu } = Menu;
+const { Content } = Layout;
 
-const LayoutComponent = (props: any) => {
+const LayoutComponent: React.FC<MenuProp> = ({ menuArray }) => {
   return (
     <Layout>
-      <Header className="header">
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
-      </Header>
+      <HeaderComponent />
       <Layout>
-        <Sider
+        <SiderComponent menuArray={menuArray} />
+        {/* <Sider
           style={{
             width: '200px',
             overflowY: 'auto',
@@ -75,7 +72,7 @@ const LayoutComponent = (props: any) => {
               <Menu.Item key="12">option12</Menu.Item>
             </SubMenu>
           </Menu>
-        </Sider>
+        </Sider> */}
         <Layout style={{ padding: '0 24px 24px',
             overflowY: 'auto',
             height: '100vh', }}>
@@ -87,7 +84,6 @@ const LayoutComponent = (props: any) => {
           <Content
             className="site-layout-background"
             style={{
-              padding: 24,
               margin: 0,
               minHeight: 280,
             }}
