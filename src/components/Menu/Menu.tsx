@@ -10,10 +10,11 @@ const MenuComponent: React.FC<MenuProp> = ({ menuArray }) => {
   const defaultOpenKeys: string[] = [];
 
   const subMenuArray = menuArray.map((item) => {
-    const { children, description, key, isdefaultSelectedKey } = item;
-    isdefaultSelectedKey && defaultSelectedKeys.push(key);
+    const { children, description, key, isdefaultOpenKey } = item;
+    
+    isdefaultOpenKey && defaultOpenKeys.push(key);
     const menuItems = children.map((item) => {
-      item.isdefaultOpenKey && defaultOpenKeys.push(item.key);
+      item.isdefaultSelectedKey && defaultSelectedKeys.push(item.key);
       return <Menu.Item key={item.key}>{item.title}</Menu.Item>
     });
     const subMenu = (

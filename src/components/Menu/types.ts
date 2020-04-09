@@ -4,20 +4,20 @@
  * @Author: Jensen
  * @Date: 2020-04-09 16:06:16
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-09 17:16:57
+ * @LastEditTime: 2020-04-09 17:46:14
  */
 export interface IMenuItem {
   key: string;
   parentKey: string;
   title: string;
-  isdefaultOpenKey: boolean;
+  isdefaultSelectedKey: boolean;
 }
 
 export interface ISubMenuItem {
   key: string;
   description: string;
   role: string;
-  isdefaultSelectedKey: boolean;
+  isdefaultOpenKey: boolean;
   children: IMenuItem[];
 }
 
