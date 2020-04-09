@@ -9,25 +9,25 @@ function App() {
       key: '1',
       description: 'subnav 1',
       role: 'student',
-      isdefaultSelectedKey: true,
+      isdefaultOpenKey: true,
       children: [
         {
           key: '1_1',
           parentKey: '1',
           title: 'option1',
-          isdefaultOpenKey: true
+          isdefaultSelectedKey: true
         },
         {
           key: '1_2',
           parentKey: '1',
           title: 'option2',
-          isdefaultOpenKey: false
+          isdefaultSelectedKey: false
         },
         {
           key: '1_3',
           parentKey: '1',
           title: 'option3',
-          isdefaultOpenKey: false
+          isdefaultSelectedKey: false
         }
       ]
     },
@@ -35,19 +35,19 @@ function App() {
       key: '2',
       description: 'subnav 2',
       role: 'student',
-      isdefaultSelectedKey: false,
+      isdefaultOpenKey: false,
       children: [
         {
           key: '2_1',
           parentKey: '1',
           title: 'option4',
-          isdefaultOpenKey: false
+          isdefaultSelectedKey: false
         },
         {
           key: '2_2',
           parentKey: '1',
           title: 'option5',
-          isdefaultOpenKey: false
+          isdefaultSelectedKey: false
         }
       ]
     }
