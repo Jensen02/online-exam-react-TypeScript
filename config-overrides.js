@@ -4,9 +4,16 @@
  * @Author: Jensen
  * @Date: 2020-03-26 22:21:17
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-03-26 22:27:28
+ * @LastEditTime: 2020-04-10 21:14:00
  */
-const { override, fixBabelImports, addLessLoader } = require('customize-cra');
+// const path = require('path');
+const {
+  override,
+  fixBabelImports,
+  addLessLoader,
+  // addWebpackAlias,
+  // addDecoratorsLegacy
+} = require('customize-cra');
 
 module.exports = override(
   fixBabelImports('import', {
@@ -18,4 +25,8 @@ module.exports = override(
     javascriptEnabled: true,
     modifyVars: { '@primary-color': '#1DA57A' },
   }),
+  // addWebpackAlias({
+  //   "@": path.resolve(__dirname, 'src')
+  // }),
+  // addDecoratorsLegacy(),
 );
