@@ -7,7 +7,7 @@ import './Layout.less';
 
 const { Content } = Layout;
 
-const LayoutComponent: React.FC<MenuProp> = ({ menuArray }) => {
+const LayoutComponent: React.FC<MenuProp> = ({ menuArray, children }) => {
   return (
     <Layout>
       <HeaderComponent />
@@ -32,7 +32,7 @@ const LayoutComponent: React.FC<MenuProp> = ({ menuArray }) => {
               minHeight: 280,
             }}
           >
-            Content
+            { children }
           </Content>
         </Layout>
       </Layout>

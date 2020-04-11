@@ -1,6 +1,8 @@
 import React from 'react';
 import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import LayoutComponent from './components/Layout/Layout';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 import './App.css';
 
 function App() {
@@ -54,13 +56,17 @@ function App() {
   ];
   return (
     <div className="App">
-      <LayoutComponent menuArray={menuArray}>
-        <Router>
-          <Switch>
-            <Redirect from='/' to='/login' />
-          </Switch>
-        </Router>
-      </LayoutComponent>
+      <Router>
+        <Switch>
+          <Route exact path='/login' component={Login} />
+          <Redirect exact from='/' to='/login' />
+          <Route exact path='/register' component={Register} />
+          <LayoutComponent menuArray={menuArray}>
+            <Switch>
+            </Switch>
+          </LayoutComponent>
+        </Switch>
+      </Router>
     </div>
   );
 }
