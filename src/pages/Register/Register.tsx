@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
   Form,
@@ -9,7 +9,7 @@ import {
   Col,
   Checkbox,
   Button,
-  Typography
+  Typography,
 } from 'antd';
 import './Register.less';
 
@@ -41,10 +41,27 @@ const tailFormItemLayout = {
 
 const Register: React.FC = () => {
   const [form] = Form.useForm();
+  const [isClick, setIsClick] = useState(true);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (count > 0) {
+        setCount((c: number) => c - 1);
+      } else {
+        setIsClick(true)
+      }
+    }, 1000);
+  }, [count]);
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
   };
+
+  const handleClick = () => {
+    setIsClick(false);
+    setCount(60);
+  }
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -126,7 +143,7 @@ const Register: React.FC = () => {
             hasFeedback
             name="phone"
             label="手机号码"
-            rules={[{ required: true, pattern: /^1[3456789]\d{9}$/, message: '请输入手机号码!' }]}
+            rules={[{ required: true, pattern: /^1[34578]\d{9}$/, message: '请输入手机号码!' }]}
           >
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           </Form.Item>
@@ -142,7 +159,13 @@ const Register: React.FC = () => {
                 </Form.Item>
               </Col>
               <Col span={12}>
-                <Button>获取验证码</Button>
+                <Button disabled={!isClick} type='primary' style={{ width: '115px' }} onClick={handleClick}>
+                  {
+                    isClick
+                    ? '获取验证码'
+                    : `${count >= 10 ? count : `0${count}`} s重新获取`
+                  }
+                </Button>
               </Col>
             </Row>
           </Form.Item>

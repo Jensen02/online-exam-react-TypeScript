@@ -9,6 +9,10 @@ const MenuComponent: React.FC<MenuProp> = ({ menuArray }) => {
   const defaultSelectedKeys: string[] = [];
   const defaultOpenKeys: string[] = [];
 
+  const handleSelect = (e: any) => {
+    console.log('e: ', e);
+  }
+
   const subMenuArray = menuArray.map((item) => {
     const { children, description, key, isdefaultOpenKey } = item;
     
@@ -39,6 +43,7 @@ const MenuComponent: React.FC<MenuProp> = ({ menuArray }) => {
       defaultOpenKeys={defaultOpenKeys}
       defaultSelectedKeys={defaultSelectedKeys}
       style={{ height: '100%', borderRight: 0 }}
+      onSelect={handleSelect}
     >
       {subMenuArray}
     </Menu>
