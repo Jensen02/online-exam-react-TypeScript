@@ -1,8 +1,10 @@
 /*
  * @fileheader.Author: asd
  */
+/*
+ * @fileheader.Author: asd
+ */
 import { message } from 'antd';
-import { get } from 'store';
 import store from 'store';
 import {
   SET_CLASS_LIST_STUDENT,
@@ -55,17 +57,15 @@ export const getClassListStudentA = () => {
   return async (dispatch: any) => {
     const res = await getClassListStudent(student);
     const { data } = res;
-    console.log('data: ', data);
     dispatch(setClassList(data));
   }
 }
 
 // 退出班级
 export const exitClassA = (classId: string) => {
-  const student = get('name');
+  const student = store.get('name');
   return async (dispatch: any) => {
-    const {data, code, msg} = await exitClass(classId, student);
-    console.log('data: ', data);
+    const { data, code, msg } = await exitClass(classId, student);
     if (parseInt(code, 10) === 1) {
       message.success(msg);
       dispatch(getClassListStudentA());
@@ -77,17 +77,24 @@ export const exitClassA = (classId: string) => {
 export const queryClassA = (queryInfo: any) => {
   const { classNo, school } = queryInfo;
   return async (dispatch: any) => {
-    const {data, code, msg} = await queryClass(classNo, school);
-    console.log('data: ', data);
-    dispatch(setClassInfo(data));
+    const { data, code, msg } = await queryClass(classNo, school);
+    if (parseInt(code, 10) === 1) {
+      dispatch(setClassInfo(data[0]));
+      setTimeout(() => dispatch(setSuccess(true)), 800);
+    } else {
+      message.error(msg);
+    }
   }
 }
 
 // 申请加入班级
 export const applicationAddClassA = (classId: string) => {
-  const student = localStorage.getItem('name') || '';
-  return (dispatch: any) => {
-    const data = applicationAddClass(classId, student);
-    console.log('data: ', data);
+  const student = store.get('name') || '';
+  return async (dispatch: any) => {
+    const {data, code, msg} = await applicationAddClass(classId, student);
+    if (parseInt(code, 10) === 1) {
+      message.success(msg);
+      dispatch(getClassListStudentA());
+    }
   }
 }

@@ -5,7 +5,8 @@ import { connect } from 'react-redux';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { DropdownOption } from '../../components';
-import AddModal from './components/Modal';
+import QueryModal from './components/QueryModal';
+import AddModal from './components/AddModal';
 import { Props } from '../../types';
 import { IClassInfo } from '../../reducers/class-manage';
 import { setOpenKey, setSelectKey } from '../../actions';
@@ -13,7 +14,9 @@ import {
   getClassListStudentA,
   setIsVisible,
   queryClassA,
-  applicationAddClassA
+  applicationAddClassA,
+  exitClassA,
+  setSuccess
 } from '../../actions/student-action';
 import './ClassList.less';
 
@@ -44,11 +47,14 @@ const ClassList: React.FC<Props & IProps> = ({
     dispatch(setSelectKey('2_1'));
   }, []);
   const handleClick = (key: number, record: any) => {
-    console.log('key: ', key, 'record: ', record);
+    if (key === 1) {
+      dispatch(exitClassA(record.classId));
+    }
   }
   const onCreate = (classId: string) => {
-    console.log('cla: ', classId);
-    dispatch(applicationAddClassA(classId))
+    console.log('classid: ', classId)
+    dispatch(applicationAddClassA(classId));
+    dispatch(setSuccess(false));
   }
   const columns: ColumnProps<IClass>[] = [
     {
@@ -71,11 +77,13 @@ const ClassList: React.FC<Props & IProps> = ({
         </Tooltip>
       )
     },
-    { title: '学校',
+    {
+      title: '学校',
       dataIndex: 'school',
       key: 'school'
     },
-    { title: '创建时间',
+    {
+      title: '创建时间',
       dataIndex: 'foundTime',
       key: 'foundTime'
     },
@@ -87,7 +95,7 @@ const ClassList: React.FC<Props & IProps> = ({
       render: (text, record) => (
         <DropdownOption
           record={record}
-          option={[{title: '退出班级', key: 1}]}
+          option={[{ title: '退出班级', key: 1 }]}
           handleClick={handleClick}
         />
       )
@@ -113,13 +121,20 @@ const ClassList: React.FC<Props & IProps> = ({
           dataSource={classList}
         />
       </div>
-      <AddModal 
+      <QueryModal
         visible={visible}
         onCancel={() => dispatch(setIsVisible(false))}
-        onCreate={onCreate}
+        // onCreate={onCreate}
+        onQuery={(queryInfo: any) => {
+          dispatch(queryClassA(queryInfo))
+          dispatch(setIsVisible(false))
+        }}
+      />
+      <AddModal 
+        visible={querySuccess}
         classInfo={classInfo}
-        isSuccess={querySuccess}
-        onQuery={(queryInfo: any) => dispatch(queryClassA(queryInfo))}
+        onOk={onCreate}
+        onCancel={() => dispatch(setSuccess(false))}
       />
     </div>
   );

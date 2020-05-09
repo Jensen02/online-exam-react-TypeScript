@@ -31,6 +31,8 @@ const CreateExam: React.FC<Props & IProps> = ({
         examName,
         examSubject,
         difficulty,
+        visibility: 'public',
+        examType: '试卷',
         testDuration: testDuration.format('HH:mm:ss'),
         begin: begin.format('YYYY-MM-DD HH:mm:ss')
       },

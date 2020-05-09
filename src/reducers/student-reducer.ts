@@ -1,3 +1,6 @@
+/*
+ * @fileheader.Author: asd
+ */
 import { Action } from '../types';
 import {
   SET_CLASS_LIST_STUDENT,
@@ -16,7 +19,7 @@ interface IClassList {
 
 const INIT_DATA: IClassList = {
   visible: false,
-  querySuccess: true,
+  querySuccess: false,
   classList: [{
     key: '1',
     classId: "56278165-0337-49d5-8e5a-e30bfc617c1c",
@@ -40,7 +43,7 @@ const INIT_DATA: IClassList = {
 
 export const studentReducer = (state = INIT_DATA, action: Action) => {
   const { type, payload } = action;
-  switch(type) {
+  switch (type) {
     case SET_CLASS_LIST_STUDENT:
       return { ...state, classList: payload };
     case ADD_CLASS:
