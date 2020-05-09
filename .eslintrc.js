@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-04-13 12:47:30
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-13 12:50:05
+ * @LastEditTime: 2020-04-16 22:26:09
  */
 module.exports = {
   "plugins": [
@@ -15,5 +15,8 @@ module.exports = {
     // ...
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
-  }
+  },
+  "parserOptions": {
+    "ecmaVersion": 6
+}
 }
