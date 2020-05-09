@@ -109,19 +109,12 @@ const menuArray = [
       {
         key: '4_1',
         parentKey: '4',
-        title: '考试列表',
-        isdefaultSelectedKey: false,
-        path: '/home/teacher/exam-manage'
-      },
-      {
-        key: '4_2',
-        parentKey: '4',
         title: '添加题目',
         isdefaultSelectedKey: false,
         path: '/home/teacher/create-topic'
       },
       {
-        key: '4_3',
+        key: '4_2',
         parentKey: '4',
         title: '题目管理',
         isdefaultSelectedKey: false,
@@ -155,7 +148,7 @@ function App() {
                   <Route exact path='/home/exam-list' component={ExamList} />
                   <Route exact path='/home/student/class-list' component={ClassList} />
                   <Route exact path='/home/teacher/class-manage' component={ClassManage} />
-                  <Route exact path='/home/teacher/exam-manage' component={ExamManage} />
+                  <Route exact path='/home/teacher/exam-manage/:id' component={ExamManage} />
                   <Route exact path='/home/teacher/student-list/:id' component={StudentList} />
                   <Route exact path='/home/teacher/approve' component={StudentApprove} />
                   <Route exact path='/home/teacher/create-exam/:id' component={CreateExam} />
