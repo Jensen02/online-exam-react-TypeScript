@@ -1,0 +1,46 @@
+.exam-list {
+  padding-top: 18px;
+  .exam-state {
+    display: flex;
+    justify-content: space-evenly;
+    .state {
+      width: 210px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 26px;
+      font-weight: 500;
+      box-shadow:
+        0px 1px	2px	-2px rgba(0, 0, 0, 0.16),
+        0px 3px	6px	0px rgba(0, 0, 0, 0.12),
+        0px 5px	12px	4px rgba(0, 0, 0, 0.09);
+      &:hover {
+        transform: scale(1.1);
+        transition: all 0.5s;
+      }
+      .title, .number {
+        display: block;
+      }
+      .number {
+        font-size: 40px;
+      }
+    }
+    .exam-state-finished {
+      background-color: #73d13d;
+    }
+    .exam-state-progress {
+      background-color: #69c0ff;
+    }
+    .exam-state-will {
+      background-color: #faad14;
+    }
+  }
+  .exam-info {
+
+  }
+}

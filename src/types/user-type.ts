@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-04-09 22:36:10
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-09 23:19:25
+ * @LastEditTime: 2020-05-08 17:21:42
  */
 export interface IUserInfo {
   userName: string;
@@ -16,4 +16,17 @@ export interface IUserInfo {
   sex?: string;
   birthday?: string;
   idNo?: string;
+}
+
+export interface IRegister {
+  phone: string;
+  code: string;
+  password: string;
+  username: string;
+}
+
+export interface IProps {
+  dispatch?: any,
+  history?: any,
+  location?: any,
 }

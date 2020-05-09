@@ -1,0 +1,33 @@
+.school-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .school-item {
+    display: inline-block;
+    width: 16%;
+    height: 24px;
+    line-height: 24px;
+    font-size: 13px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.8s;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .school-item:hover {
+    background-color: #d9d9d9;
+  }
+  .school-item:last-child:nth-child(6n - 1) {
+    margin-right: calc(16% + 4% / 5);
+  }
+  .school-item:last-child:nth-child(6n - 2) {
+    margin-right: calc(32% + 8% / 5);
+  }
+  .school-item:last-child:nth-child(6n - 3) {
+    margin-right: calc(48% + 12% / 5);
+  }
+  .school-item:last-child:nth-child(6n - 4) {
+    margin-right: calc(64% + 16% / 5);
+  }
+}

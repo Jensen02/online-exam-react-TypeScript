@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import {
   Form,
@@ -10,11 +11,24 @@ import {
   Checkbox,
   Button,
   Typography,
+  Radio,
+  message
 } from 'antd';
+import {
+  setIsModal,
+  sendCode,
+} from '../../actions';
+import { userRegistryA } from '../../actions/user-action';
+import { Props } from '../../types';
 import './Register.less';
 
 const { Option } = Select;
 const { Title } = Typography;
+
+interface RProps{
+  visible: boolean;
+  school: string;
+}
 
 const formItemLayout = {
   labelCol: {
@@ -39,7 +53,7 @@ const tailFormItemLayout = {
   },
 };
 
-const Register: React.FC = () => {
+const Register: React.FC<Props & RProps> = ({ dispatch, visible, school }) => {
   const [form] = Form.useForm();
   const [isClick, setIsClick] = useState(true);
   const [count, setCount] = useState(0);
@@ -56,12 +70,32 @@ const Register: React.FC = () => {
 
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
+    const {password, nickname, role, captcha, phone} = values;
+    const user = {
+      userName: nickname,
+      tel: phone,
+      psw: password,
+      identity: role
+    };
+    dispatch(userRegistryA(captcha, user));
   };
 
   const handleClick = () => {
+    const userName: string = form.getFieldValue('nickname');
+    const tel: string = form.getFieldValue('phone');
+    if (!userName || !tel) {
+      message.error('请输入用户名和手机号码');
+      return;
+    }
+    dispatch(sendCode(tel, userName));
     setIsClick(false);
     setCount(60);
   }
+
+  const onCreate = (values: any) => {
+    console.log('Received values of form: ', values);
+    setIsModal(false);
+  };
 
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
@@ -70,6 +104,10 @@ const Register: React.FC = () => {
       </Select>
     </Form.Item>
   );
+
+  const onCurrencyChange = (newCurrency: any) => {
+    console.log('val: ', newCurrency);
+  };
 
   return (
     <div className='login-bg'>
@@ -123,21 +161,28 @@ const Register: React.FC = () => {
           >
             <Input.Password />
           </Form.Item>
-
           <Form.Item
             hasFeedback
             name="nickname"
-            label={
-              <span>
-                用户名&nbsp;
-                <Tooltip title="请输入学号或学工号作为用户名">
-                  <QuestionCircleOutlined />
-                </Tooltip>
-              </span>
-            }
+            label='用户名'
             rules={[{ required: true, message: '用户名不能为空!', whitespace: true }]}
           >
-            <Input />
+            <Input placeholder='用户名' />
+          </Form.Item>
+          <Form.Item
+            name="role"
+            label="角色"
+            hasFeedback
+            rules={[{ required: true, message: '请选择用户角色' }]}
+          >
+            <Row>
+              <Col>
+                <Radio.Group>
+                  <Radio value="学生">学生</Radio>
+                  <Radio value="老师">老师</Radio>
+                </Radio.Group>
+              </Col>
+            </Row>
           </Form.Item>
           <Form.Item
             hasFeedback
@@ -148,17 +193,18 @@ const Register: React.FC = () => {
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item label="手机验证码">
-            <Row gutter={8}>
+            <Row gutter={8} justify='space-between'>
               <Col span={12}>
                 <Form.Item
+                  hasFeedback
                   name="captcha"
                   noStyle
-                  rules={[{ required: true, pattern: /^\d{6}$/, message: '手机验证码不能为空!' }]}
+                  rules={[{ required: true, pattern: /^\d{4}$/, message: '手机验证码不能为空!' }]}
                 >
                   <Input />
                 </Form.Item>
               </Col>
-              <Col span={12}>
+              <Col span={10}>
                 <Button disabled={!isClick} type='primary' style={{ width: '115px' }} onClick={handleClick}>
                   {
                     isClick
@@ -193,4 +239,15 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+const mapStateToProps = (state: any) => {
+  return {
+    visible: state.user.isModal,
+    school: state.user.school
+  }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+  return { dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -4,17 +4,22 @@
  * @Author: Jensen
  * @Date: 2020-04-10 17:58:32
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-11 00:30:05
+ * @LastEditTime: 2020-05-08 18:13:00
  */
 import axios from 'axios';
 import { cloneDeep } from 'lodash';
 import store from 'store';
 import { message } from 'antd';
 
-axios.defaults.baseURL = '/api/v1';
+// axios.defaults.baseURL = 'http://101.133.211.70:8080/api/v1';
 axios.interceptors.request.use((config) => {
+  const { url } = config;
   const token = store.get('token');
-  token && (config.headers['Authorization'] = token);
+  token && (config.headers['token'] = token);
+  // if (/\/apis/.test(String(url))) {
+  //   config.headers['authoration'] = 'apicode';
+  //   config.headers['apicode'] = '';
+  // }
   return config;
 }, (error: any) => {
   message.error(`Error: ${error}`);

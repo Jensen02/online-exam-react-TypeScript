@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox, Radio, Typography } from 'antd';
+import { Link, useHistory } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+import store from 'store';
+import { Props } from '../../types';
+import { loginA } from '../../actions/user-action';
 import './Login.less';
+import { IProps } from 'src/types/user-type';
 
 const { Title } = Typography;
 const formItemWrapper = {
   wrapperCol: { span: 12, offset: 0 }
 }
 
-const Login: React.FC = () => {
+interface IIProps {
+  isLogin: boolean;
+  role: string;
+}
+
+const Login: React.FC<Props & IIProps> = ({ dispatch, isLogin, role }) => {
+  const history = useHistory();
   const onFinish = (values: any) => {
     console.log('Received values of form: ', values);
+    const {username, password, role} = values;
+    dispatch(loginA(password, username, role));
   };
+  useEffect(() => {
+    console.log(isLogin);
+    console.log('role: ', role);
+    if (isLogin) {
+      store.set('role', role)
+      if (role === 'teacher') {
+        history.replace('/home/teacher/class-manage');
+      }
+      if (role === 'student') {
+        history.replace('/home/student/class-list');
+      }
+    }
+    // isLogin && history.replace('/home/teacher/class-manage');
+  }, [isLogin]);
 
   return (
     <div className='login-bg'>
@@ -23,7 +51,7 @@ const Login: React.FC = () => {
         <Form
           name="normal_login"
           className="login-form"
-          initialValues={{ remember: true }}
+          initialValues={{ role: 'student' }}
           onFinish={onFinish}
         >
           <Form.Item
@@ -32,7 +60,7 @@ const Login: React.FC = () => {
             className='form-item-layout'
             rules={[{ required: true, message: '用户名为空或用户名错误' }]}
           >
-            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="手机号 / 学号 / 学工号" />
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="用户名" />
           </Form.Item>
           <Form.Item
             hasFeedback
@@ -55,13 +83,6 @@ const Login: React.FC = () => {
               <Radio value='teacher'>老师</Radio>
             </Radio.Group>
           </Form.Item>
-          <Form.Item
-            { ...formItemWrapper }
-          >
-            <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>记住账号</Checkbox>
-            </Form.Item>
-          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-form-button">
               登录
@@ -69,7 +90,7 @@ const Login: React.FC = () => {
           </Form.Item>
           <Form.Item>
             <Button type='link'>忘记密码？</Button>
-            <Button type='link'>注册账号</Button>
+            <Button type='link'><Link to='/registry'>注册账号</Link></Button>
           </Form.Item>
         </Form>
       </div>
@@ -77,4 +98,14 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => {
+  return {
+    isLogin: state.user.isLogin,
+    role: state.user.role
+  }
+}
+const mapDispatchToProps = (dispatch: any) => {
+  return { dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

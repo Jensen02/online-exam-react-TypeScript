@@ -4,11 +4,34 @@
  * @Author: Jensen
  * @Date: 2020-04-09 21:44:49
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-09 23:40:27
+ * @LastEditTime: 2020-05-08 22:50:46
  */
-import { setUserInfo, setUserRole } from './user-action';
+import {
+  setUserInfo,
+  setUserRole,
+  sendCode,
+  setIsModal,
+  setCityList,
+  setProvinceList,
+  setSchoolList,
+  getProvinceList,
+  getCityList,
+  getSchoolList,
+  setOpenKey,
+  setSelectKey
+} from './user-action';
 
 export {
   setUserInfo,
-  setUserRole
+  setUserRole,
+  sendCode,
+  setIsModal,
+  setCityList,
+  setProvinceList,
+  setSchoolList,
+  getProvinceList,
+  getCityList,
+  getSchoolList,
+  setOpenKey,
+  setSelectKey
 }

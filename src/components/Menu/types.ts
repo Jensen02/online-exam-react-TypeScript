@@ -4,13 +4,14 @@
  * @Author: Jensen
  * @Date: 2020-04-09 16:06:16
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-04-09 17:46:14
+ * @LastEditTime: 2020-05-05 11:14:07
  */
 export interface IMenuItem {
   key: string;
   parentKey: string;
   title: string;
   isdefaultSelectedKey: boolean;
+  path: string;
 }
 
 export interface ISubMenuItem {
@@ -18,6 +19,7 @@ export interface ISubMenuItem {
   description: string;
   role: string;
   isdefaultOpenKey: boolean;
+  icon: string;
   children: IMenuItem[];
 }
 

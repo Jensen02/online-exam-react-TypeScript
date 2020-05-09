@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 import HeaderComponent from '../Header/Header';
 import SiderComponent from '../Sider/Sider';
 import { MenuProp } from '../Menu/types';
@@ -17,14 +17,14 @@ const LayoutComponent: React.FC<MenuProp> = ({ menuArray, children }) => {
           style={{
             padding: '0 24px 24px',
             overflowY: 'auto',
-            height: '100vh'
+            // height: '100vh'
           }}
         >
-          <Breadcrumb style={{ margin: '16px 0', textAlign: 'left' }}>
+          {/* <Breadcrumb style={{ margin: '16px 0', textAlign: 'left' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
           <Content
             className="site-layout-background"
             style={{
