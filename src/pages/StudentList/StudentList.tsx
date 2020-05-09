@@ -19,12 +19,10 @@ const StudentList: React.FC<IProps & Props> = ({
   studentList
 }) => {
   const { id } = useParams();
-  // useEffect(() => dispatch(getStudentListA(id)), []);
-  const onClick = (record: any) => {
-    console.log('push: ', record);
-  }
+  useEffect(() => {
+    dispatch(getStudentListA(id));
+  }, []);
   const handleClick = (key: number, record: any) => {
-    console.log('key: ', key, 'record: ', record);
     dispatch(deleteStudentA(id, record.userName));
   }
   const columns: ColumnProps<IStudent>[] = [
