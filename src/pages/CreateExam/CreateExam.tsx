@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom'; 
-import {Form, Select, InputNumber, Button, Input, TimePicker, DatePicker} from 'antd';
+import {Form, Select, InputNumber, Button, Input, TimePicker, DatePicker, Radio} from 'antd';
 import { TopicCard } from '../../components';
 import { Props } from '../../types';
 import './CreateExam.less';
@@ -22,7 +22,20 @@ const CreateExam: React.FC<Props & IProps> = ({
   };
   const onFinish = (values: any) => {
     console.log('values: ', values);
-    const {admin, examName, examSubject, difficulty, testDuration, begin, redio, short, fill, judge } = values;
+    const {
+      examType,
+      visibility,
+      admin,
+      examName,
+      examSubject,
+      difficulty,
+      testDuration,
+      begin,
+      redio,
+      short,
+      fill,
+      judge
+    } = values;
     
     const exam = {
       classId: id,
@@ -31,8 +44,8 @@ const CreateExam: React.FC<Props & IProps> = ({
         examName,
         examSubject,
         difficulty,
-        visibility: 'public',
-        examType: '试卷',
+        visibility,
+        examType,
         testDuration: testDuration.format('HH:mm:ss'),
         begin: begin.format('YYYY-MM-DD HH:mm:ss')
       },
@@ -43,7 +56,6 @@ const CreateExam: React.FC<Props & IProps> = ({
         简答: short
       }
     };
-    console.log('val: ', exam);
     dispatch(createExamA(exam));
   };
   return (
@@ -111,7 +123,28 @@ const CreateExam: React.FC<Props & IProps> = ({
             placeholder='考试开始时间'
           />
         </Form.Item>
-
+        <Form.Item
+          name="visibility"
+          label="试卷可见性"
+          style={{textAlign: 'left'}}
+          rules={[{required: true, message: '请选择试卷可见性!'}]}
+        >
+          <Radio.Group>
+            <Radio value="priviate">私有</Radio>
+            <Radio value="public">公有</Radio>
+          </Radio.Group>
+        </Form.Item>
+        <Form.Item
+          name="examType"
+          label="试卷类型"
+          style={{textAlign: 'left'}}
+          rules={[{required: true, message: '请选择试卷类型!'}]}
+        >
+          <Radio.Group>
+            <Radio value="试卷">试卷</Radio>
+            <Radio value="测试">测试</Radio>
+          </Radio.Group>
+        </Form.Item>
         <Form.Item label="选择题">
           <Form.Item name="redio" noStyle rules={[{ required: true, message: '请输入选择题数量!' }]}>
             <InputNumber style={{width: '100%'}} min={0} />
