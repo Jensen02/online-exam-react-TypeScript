@@ -4,7 +4,7 @@
  * @Author: Jensen
  * @Date: 2020-04-09 21:55:35
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-05-09 15:44:46
+ * @LastEditTime: 2020-05-09 21:09:19
  */
 import { message } from 'antd';
 import {
@@ -170,7 +170,7 @@ export const userRegistryA = (codes: string, user: any) => {
 export const loginA = (psw: string, tel: string, role: string) => {
   const identity = role === 'student' ? '学生' : '老师';
   return async (dispatch: any) => {
-    const { code, data } = await login(psw, tel, identity);
+    const { code, data, msg } = await login(psw, tel, identity);
     console.log('data: ', data);
     if (parseInt(code, 10) === 1) {
       store.set('name', data[0]);
@@ -178,7 +178,7 @@ export const loginA = (psw: string, tel: string, role: string) => {
       dispatch(setUserRole(role));
       dispatch(setIsLogin(true));
     } else {
-      message.error('登录失败');
+      message.error(msg);
     }
   }
 }

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import { connect } from 'react-redux';
 import { Form, Input, Button, Checkbox, Radio, Typography } from 'antd';
 import { Link, useHistory } from 'react-router-dom';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -23,13 +22,10 @@ interface IIProps {
 const Login: React.FC<Props & IIProps> = ({ dispatch, isLogin, role }) => {
   const history = useHistory();
   const onFinish = (values: any) => {
-    console.log('Received values of form: ', values);
     const {username, password, role} = values;
     dispatch(loginA(password, username, role));
   };
   useEffect(() => {
-    console.log(isLogin);
-    console.log('role: ', role);
     if (isLogin) {
       store.set('role', role)
       if (role === 'teacher') {
@@ -39,7 +35,6 @@ const Login: React.FC<Props & IIProps> = ({ dispatch, isLogin, role }) => {
         history.replace('/home/student/class-list');
       }
     }
-    // isLogin && history.replace('/home/teacher/class-manage');
   }, [isLogin]);
 
   return (
