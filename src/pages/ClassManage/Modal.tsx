@@ -2,12 +2,6 @@ import React, { useEffect } from 'react';
 import { Button, Modal, Form, Input, Radio } from 'antd';
 import moment from 'moment';
 
-// interface Values {
-//   school: string;
-//   teacher: string;
-//   className: string;
-// }
-
 interface CollectionCreateFormProps {
   visible: boolean;
   classInfo: any;
@@ -48,11 +42,12 @@ const CreateClassModal: React.FC<CollectionCreateFormProps> = ({
         form
           .validateFields()
           .then((values) => {
-            form.resetFields();
+            // form.resetFields();
+            console.log('values: ', values);
             const foundTime = moment().format('YYYY-MM-DD');
             const value = !isEdit
-              ? Object.assign(values, {foundTime, inspect: false})
-              : Object.assign(values, classInfo);
+              ? Object.assign(values, {foundTime, inspect: true})
+              : Object.assign(classInfo, values, { foundTime });
             onCreate(value);
           })
           .catch(info => {

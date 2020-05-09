@@ -106,7 +106,6 @@ export const getClassListA = () => {
   return async (dispatch: Dispatch) => {
     const teacher = store.get('name') || '';
     const { data, msg, code } = await getClassList(teacher);
-    console.log('class: ', data);
     dispatch(setClassList(data));
     const classIdList = changeClassInfo(data);
     dispatch(setClassIdList(classIdList));
@@ -165,13 +164,14 @@ export const getStudentListA = (classId: string) => {
 
 // 删除学生
 export const deleteStudentA = (classId: string, student: string) => {
-  // const student = get('name');
   return async (dispatch: any) => {
     const { data, msg, code } = await deleteStudent({student, classId});
     console.log('data: ', data);
     if (parseInt(code, 10) === 1) {
       message.success(msg);
       dispatch(getStudentListA(classId));
+    } else {
+      message.error(msg);
     }
   }
 }
@@ -179,8 +179,12 @@ export const deleteStudentA = (classId: string, student: string) => {
 // 获取试卷列表
 export const getExamListA = (classId: string) => {
   return async (dispatch: any) => {
-    const { data, msg, code } = await getExamList(classId);
-    console.log('data: ', data);
+    const { msg, code } = await getExamList(classId);
+    if (parseInt(code, 10) === 1) {
+      message.success(msg);
+    } else {
+      message.error(msg);
+    }
   }
 }
 

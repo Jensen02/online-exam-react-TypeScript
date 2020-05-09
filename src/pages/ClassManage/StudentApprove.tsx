@@ -3,7 +3,6 @@ import { Table, Tooltip, Avatar, Select } from 'antd';
 import { ColumnProps } from 'antd/es/table';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
-// import { useParams } from 'react-router-dom';
 import { DropdownOption } from '../../components';
 import { Props } from '../../types';
 import { IStudent } from '../../reducers/class-manage';
@@ -30,17 +29,16 @@ const StudentApprove: React.FC<Props & IProps> = ({
   selectedClassId
 }) => {
   useEffect(() => {
-    // dispatch(getClassListA());
+    dispatch(getClassListA());
     dispatch(setOpenKey('3'));
     dispatch(setSelectKey('3_2'));
   }, []);
   useEffect(() => {
     if (classIdList.length) {
-      // dispatch(getStudentListWithApproveA(selectedClassId));
+      dispatch(getStudentListWithApproveA(selectedClassId));
     }
   }, [classIdList]);
   const handleClick = (key: number, record: any) => {
-    console.log('key: ', key, 'record: ', record);
     const state = key === 1 ? '1' : '0';
     dispatch(approveStudentA({
       student: record.userName,
@@ -85,8 +83,10 @@ const StudentApprove: React.FC<Props & IProps> = ({
       <div className='select_class' style={{width: 300, marginBottom: 10}}>
         <Select
           style={{width: '100%'}}
-          defaultValue={classIdList[0].classId}
-          onChange={(val: string) => dispatch(getStudentListWithApproveA(val))}
+          onChange={(val: string) => {
+            dispatch(getStudentListWithApproveA(val))
+            dispatch(setSlectedClassId(val))
+          }}
         >
           {
             classIdList.length && classIdList.map((item) => {
@@ -109,7 +109,7 @@ const mapStateToProps = (state: any) => {
   return {
     studentApprove: state.classManage.studentApprove,
     classIdList: state.classManage.classIdList,
-    selectedClassId: state.classManage.classIdList
+    selectedClassId: state.classManage.selectedClassId
   };
 }
 const mapDispatchToProps = (dispatch: any) => {

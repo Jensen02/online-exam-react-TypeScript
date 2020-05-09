@@ -3,6 +3,7 @@ import { Button, Tooltip, Table } from 'antd';
 import { connect } from 'react-redux';
 import { ColumnProps } from 'antd/es/table';
 import { cloneDeep } from 'lodash';
+import moment from 'moment';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 import { DropdownOption } from '../../components';
@@ -15,7 +16,8 @@ import {
   setEditClassInfo,
   setIsEdit,
   updateClassInfoA,
-  getClassListA
+  getClassListA,
+  deleteClassA
 } from '../../actions/class-manage-action';
 import './ClassManage.less';
 import { Link } from 'react-router-dom';
@@ -49,12 +51,13 @@ const ClassManage: React.FC<Props & IProps> = ({
     console.log(visible);
   }, []);
   const onCreate = (value: any) => {
-    console.log('create: ', value);
     dispatch(setModalVisible(false));
     !isEdit ? dispatch(createClassA(value)) : dispatch(updateClassInfoA(value));
   }
   const handleClick = (key: number, record: any) => {
-    console.log('key: ', key, 'record: ', record);
+    if (key === 1) {
+      dispatch(deleteClassA(record.classId));
+    }
     if (key === 2) {
       dispatch(setIsEdit(true));
       dispatch(setEditClassInfo(record));
@@ -64,16 +67,21 @@ const ClassManage: React.FC<Props & IProps> = ({
       history.push(`/home/teacher/create-exam/${record.classId}`)
     }
   }
-  // const onClick = (record: any) => {
-  //   console.log('push: ', record);
-  // }
-  
   const columns: ColumnProps<IClass>[] = [
     {
       title: '班级号',
       width: 120,
       dataIndex: 'classNo',
-      key: 'classNo'
+      key: 'classNo',
+      render: (text, record: any) => (
+        <Tooltip title='查看该班级下的试卷列表'>
+          <Link
+            to={`/home/teacher/exam-manage/${record.classId}`}
+          >
+            {text}
+          </Link>
+        </Tooltip>
+      )
     },
     {
       title: '班级名称',
@@ -95,7 +103,8 @@ const ClassManage: React.FC<Props & IProps> = ({
     },
     { title: '创建时间',
       dataIndex: 'foundTime',
-      key: 'foundTime'
+      key: 'foundTime',
+      render: (text: any) => moment(text).format('YYYY-MM-DD HH:MM:ss')
     },
     {
       title: '操作',

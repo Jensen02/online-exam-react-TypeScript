@@ -71,13 +71,7 @@ const INIT_DATA: IClassManage = {
   editClass: {},
   isEdit: false,
   selectedClassId: '',
-  classIdList: [{
-    className: '注册V中心asdsad',
-    classId: 'asdasfasfdferfd'
-  },{
-    className: 'asdsad',
-    classId: 'asdasfasfdferfd12'
-  }],
+  classIdList: [],
   classList: [{
     key: '1',
     classId: "56278165-0337-49d5-8e5a-e30bfc617c1c",
