@@ -4,10 +4,10 @@
  * @Author: Jensen
  * @Date: 2020-04-11 00:34:58
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2020-05-09 15:48:28
+ * @LastEditTime: 2020-05-09 21:11:13
  */
 import request from './request'
-import { ResponnseData } from '../types';
+// import { ResponnseData } from '../types';
 
 export const getCode = async (tel: string, userName: string) => {
   const { data } = await request({
@@ -182,6 +182,31 @@ export const createExam = async (exam: any) => {
   return data;
 }
 
+// 添加个人信息
+export const addUserInfo = async (userInfo: any) => {
+  const { data } = await request({
+    url: '/api/v1/teacher/insertInfo',
+    data: userInfo,
+    method: 'POST',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
+  return data;
+}
+
+// 获取个人信息
+export const getUserInfo = async (userName: string) => {
+  const { data } = await request({
+    url: '/api/v1/teacher/select',
+    data: {
+      userName
+    },
+    method: 'POST'
+  });
+  return data;
+}
+
 /******************** 学生端 *******************/
 
 // 获取已加入的班级
@@ -241,31 +266,6 @@ export const submitAnswer = async (answer: any) => {
     url: '/api/v1/answer/insertAnswer',
     data: {
       answer
-    },
-    method: 'POST'
-  });
-  return data;
-}
-
-// 添加个人信息
-export const addUserInfo = async (userInfo: any) => {
-  const { data } = await request({
-    url: '/api/v1/teacher/insertInfo',
-    data: userInfo,
-    method: 'POST',
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
-  return data;
-}
-
-// 获取个人信息
-export const getUserInfo = async (userName: string) => {
-  const { data } = await request({
-    url: '/api/v1/teacher/select',
-    data: {
-      userName
     },
     method: 'POST'
   });
