@@ -12,6 +12,7 @@ export const setAnswer = (answer: any) => {
   }
 }
 
+// 组卷
 export const createExamA = (exam: any) => {
   return async () => {
     const {code, msg, data} = await createExam(exam);

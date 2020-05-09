@@ -5,7 +5,6 @@ import { Table, Tooltip } from 'antd';
 import { ColumnProps } from 'antd/es/table';
 import { DropdownOption } from '../../components';
 import { Props } from '../../types';
-// import { setOpenKey, setSelectKey } from '../../actions';
 import { getExamListA, deleteExamA } from '../../actions/class-manage-action';
 import { IExam } from '../../reducers/class-manage';
 import './ExamManage.less';
@@ -20,12 +19,12 @@ const ExamManage: React.FC<Props & IProps> = ({
 }) => {
   const { id } = useParams();
   useEffect(() => {
-    // console.log('id: ', id);
-    // dispatch(getExamListA(id));
+    dispatch(getExamListA(id));
   }, []);
   const handleClick = (key: number, record: any) => {
-    console.log('key: ', key, 'record: ', record);
-    // dispatch(deleteExamA(id, record.examId));
+    if (key === 1) {
+      dispatch(deleteExamA(id, record.examId));
+    }
   }
   const columns: ColumnProps<IExam>[] = [
     {
@@ -39,11 +38,6 @@ const ExamManage: React.FC<Props & IProps> = ({
       ellipsis: true,
       dataIndex: 'examName',
       key: 'examName',
-      // render: (text: any) => (
-      //   <Tooltip title={text}>
-      //     {text}
-      //   </Tooltip>
-      // )
     },
     {
       title: '考试时长',
