@@ -46,7 +46,6 @@
     "typescript": "~3.7.2",
     "umi-request": "^1.2.19"
   },
-  "homepage": "./",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
