@@ -1,9 +1,3 @@
-/*
- * @fileheader.Author: asd
- */
-/*
- * @fileheader.Author: asd
- */
 import { message } from 'antd';
 import store from 'store';
 import {

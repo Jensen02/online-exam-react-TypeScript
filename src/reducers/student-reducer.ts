@@ -1,6 +1,3 @@
-/*
- * @fileheader.Author: asd
- */
 import { Action } from '../types';
 import {
   SET_CLASS_LIST_STUDENT,

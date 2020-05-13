@@ -204,10 +204,13 @@ export const deleteExamA = (classId: string, examId: string) => {
 export const getStudentListWithApproveA = (classId: string) => {
   return async (dispatch: any) => {
     const { data, msg, code } = await getStudentListWithApprove(classId);
-    console.log('data: ', data);
+    // console.log('data: ', data);
     if (parseInt(code, 10) === 1) {
       message.success(msg);
       dispatch(setStudentListWithApprove(data));
+    } else {
+      message.error(msg);
+      dispatch(setStudentListWithApprove([]));
     }
   }
 }

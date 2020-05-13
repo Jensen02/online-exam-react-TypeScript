@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Button, Modal, Form, Input, Radio } from 'antd';
+import { Button, Modal, Form, Input, Radio, Switch, Tooltip } from 'antd';
 import moment from 'moment';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
 interface CollectionCreateFormProps {
   visible: boolean;
@@ -46,8 +47,9 @@ const CreateClassModal: React.FC<CollectionCreateFormProps> = ({
             console.log('values: ', values);
             const foundTime = moment().format('YYYY-MM-DD');
             const value = !isEdit
-              ? Object.assign(values, {foundTime, inspect: true})
+              ? Object.assign(values, {foundTime})
               : Object.assign(classInfo, values, { foundTime });
+              console.log('value: ', value);
             onCreate(value);
           })
           .catch(info => {
@@ -57,9 +59,10 @@ const CreateClassModal: React.FC<CollectionCreateFormProps> = ({
     >
       <Form
         {...formItemLayout}
-        initialValues={classInfo}
+        initialValues={{inspect: false, ...classInfo}}
         form={form}
         name="form_in_modal"
+        
       >
         <Form.Item
           name="school"
@@ -81,6 +84,21 @@ const CreateClassModal: React.FC<CollectionCreateFormProps> = ({
           rules={[{ required: true, message: '请输入班级名称!' }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          name="inspect"
+          label={
+            <span>
+            班级验证&nbsp;
+            <Tooltip title="是否开启班级验证，默认关闭，开启后，学生加入班级时，需要班级管理者审批通过后方可加入!">
+              <QuestionCircleOutlined />
+            </Tooltip>
+          </span>
+          }
+          required
+          valuePropName="checked"
+        >
+          <Switch />
         </Form.Item>
       </Form>
     </Modal>

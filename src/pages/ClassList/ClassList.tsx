@@ -4,6 +4,7 @@ import { ColumnProps } from 'antd/es/table';
 import { connect } from 'react-redux';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 import { DropdownOption } from '../../components';
 import QueryModal from './components/QueryModal';
 import AddModal from './components/AddModal';
@@ -85,7 +86,8 @@ const ClassList: React.FC<Props & IProps> = ({
     {
       title: '创建时间',
       dataIndex: 'foundTime',
-      key: 'foundTime'
+      key: 'foundTime',
+      render: (text: string) => moment(text).format('YYYY-MM-DD HH:MM:ss')
     },
     {
       title: '操作',

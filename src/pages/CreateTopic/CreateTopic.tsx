@@ -33,7 +33,6 @@ const CreateTopic: React.FC<Props> = ({
     dispatch(setSelectKey('4_1'));
   }, []);
   const [radio, setRadio] = useState(false);          // 选择题
-  const [fill, setFill] = useState(false);            // 填空题
   const [judge, setJudge] = useState(false);          // 判断题
   const [answer, setAnswer] = useState(false);        // 简答题
   const handleChangeType = (type: string) => {
@@ -43,14 +42,20 @@ const CreateTopic: React.FC<Props> = ({
     //   case '填空': setFill(true);
     //   case '判断': setJudge(true);
     // }
+    if (type === '判断') {
+      setRadio(false);
+      setAnswer(false);
+      setJudge(true);
+    }
     if (type === '选择') {
+      setJudge(false);
+      setAnswer(false);
       setRadio(true);
     }
-    if (type === '应用') {
+    if (type === '填空' || type === '应用') {
+      setRadio(false);
+      setJudge(false);
       setAnswer(true);
-    }
-    if (type === '填空') {
-      setFill(true);
     }
     // setJudge(true); 
     console.log('as: ', type, radio, judge);
@@ -77,7 +82,7 @@ const CreateTopic: React.FC<Props> = ({
         hasFeedback
         rules={[{ required: true, message: '请选择题目所属科目!' }]}
       >
-        <Select placeholder="选择科目">
+        <Select placeholder="选择科目" style={{textAlign:'left'}}>
           <Option value="china">China</Option>
           <Option value="usa">U.S.A</Option>
         </Select>
@@ -91,6 +96,7 @@ const CreateTopic: React.FC<Props> = ({
         <Select
           placeholder="题目类型"
           onSelect={(val: any) => handleChangeType(val)}
+          style={{textAlign:'left'}}
         >
           <Option value="选择">选择</Option>
           <Option value="判断">判断</Option>
@@ -104,7 +110,7 @@ const CreateTopic: React.FC<Props> = ({
         hasFeedback
         rules={[{ required: true, message: '请选择题目难易程度!' }]}
       >
-        <Select placeholder="题目难易程度">
+        <Select placeholder="题目难易程度" style={{textAlign: 'left'}}>
           <Option value="china">China</Option>
           <Option value="usa">U.S.A</Option>
         </Select>
@@ -177,7 +183,7 @@ const CreateTopic: React.FC<Props> = ({
         )
       }
       {
-        (fill || answer) && (
+        answer && (
           <Form.Item
             hasFeedback
             name="solution"

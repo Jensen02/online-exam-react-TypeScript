@@ -12,6 +12,7 @@ import ExamManage from './pages/ExamManage/ExamManage';
 import StudentList from './pages/StudentList/StudentList';
 import StudentApprove from './pages/ClassManage/StudentApprove';
 import CreateExam from './pages/CreateExam/CreateExam';
+import CreateTopic from './pages/CreateTopic/CreateTopic';
 import LayoutComponent from './components/Layout/Layout';
 import './App.css';
 
@@ -152,6 +153,7 @@ function App() {
                   <Route exact path='/home/teacher/student-list/:id' component={StudentList} />
                   <Route exact path='/home/teacher/approve' component={StudentApprove} />
                   <Route exact path='/home/teacher/create-exam/:id' component={CreateExam} />
+                  <Route exact path='/home/teacher/create-topic' component={CreateTopic} />
                 </Switch>
               </LayoutComponent>
             )} />
