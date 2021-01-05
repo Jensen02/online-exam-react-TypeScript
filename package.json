@@ -20,7 +20,7 @@
     "@types/store": "^2.0.2",
     "@umijs/hooks": "^1.9.0",
     "antd": "^4.0.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-plugin-import": "^1.13.0",
     "bizcharts": "^4.0.2",
     "cnchar": "^2.1.0",
